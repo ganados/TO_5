@@ -33,7 +33,7 @@ public class App {
         stations.forEach(skkm::save);
 
         while (true) {
-            if(skkm.notifySkkm()) {
+            if (skkm.notifySkkm()) {
                 TimeUnit.SECONDS.sleep(1);
             }
             if (!skkm.notifyAll(new Event())) {
