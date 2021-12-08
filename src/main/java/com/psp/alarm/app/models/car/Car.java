@@ -8,15 +8,17 @@ import com.psp.alarm.app.models.car.state.State;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.java.Log;
 
 @Setter
 @Getter
+@Log
 public class Car {
     private String id;
     private State state;
 
-    public Car() {
-        this.id = Ids.getId();
+    public Car(String id, int i) {
+        this.id = id + "---" + i;
         this.state = State.FREE;
     }
 
@@ -30,6 +32,8 @@ public class Car {
 
             if (!isFake) {
                 TimeUnit.SECONDS.sleep(random.nextInt(20) + 5);
+            } else {
+                log.info("Car " + getId() + ": fake");
             }
 
             TimeUnit.SECONDS.sleep(travelTime);
@@ -37,7 +41,7 @@ public class Car {
             e.printStackTrace();
         }
 
-        System.out.println("Car " + getId() + " free");
+        log.info("Car " + getId() + " free");
         setFree();
     }
 

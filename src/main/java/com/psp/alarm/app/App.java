@@ -12,7 +12,9 @@ import com.psp.alarm.app.skkm.ISkkm;
 import com.psp.alarm.app.skkm.Skkm;
 
 import lombok.SneakyThrows;
+import lombok.extern.java.Log;
 
+@Log
 public class App {
     @SneakyThrows
     public static void main(String[] args) {
@@ -33,7 +35,8 @@ public class App {
         stations.forEach(skkm::save);
 
         while (true) {
-            if (skkm.notifySkkm()) {
+            while (skkm.notifySkkm()) {
+                log.info("Waiting for cars");
                 TimeUnit.SECONDS.sleep(1);
             }
             if (!skkm.notifyAll(new Event())) {

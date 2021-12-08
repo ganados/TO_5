@@ -10,8 +10,10 @@ import com.psp.alarm.app.models.event.IEvent;
 import com.psp.alarm.app.models.jrgstation.ijrgstation.IJRGstation;
 
 import lombok.Getter;
+import lombok.extern.java.Log;
 
 @Getter
+@Log
 public class JRGStation implements IJRGstation {
 
     private final String jrgId;
@@ -23,7 +25,7 @@ public class JRGStation implements IJRGstation {
         this.position = position;
 
         for (int i = 0; i < 5; i++) {
-            availableCars.add(new Car());
+            availableCars.add(new Car(this.jrgId, i));
         }
     }
 
@@ -45,7 +47,7 @@ public class JRGStation implements IJRGstation {
             if (car.getState().getState().equals("FREE")) {
                 car.setBusy();
                 cars--;
-                System.out.println("Car " + car.getId() + " is busy.");
+                log.info("Car " + car.getId() + " is busy.");
                 new Thread(() -> car.create(isFake)).start();
             }
         }
